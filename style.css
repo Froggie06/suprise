@@ -1,13 +1,166 @@
 * {
-    width: 0;
-    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Cascadia Code", sans-serif;
+    color: #2c1f24;
     background-color: rgb(251, 229, 232);
 }
 
+main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5em;
+}
+
 main > div {
+    position: relative;
     display: none;
+    width: min(100%, 45em);
+    padding: 2em;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 2em;
+    box-shadow: 0 1em 2.5em rgba(44, 31, 36, 0.12);
 }
 
 main > div.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+img {
+    width: 100%;
+    max-width: 15em;
+}
+
+p {
+    margin: 0;
+    font-size: 1.25em;
+    line-height: 1.4;
+}
+
+.submission-status {
+    color: #8f3f5a;
+    font-size: 0.9em;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 100%;
+    text-align: left;
+}
+
+input,
+select,
+button {
+    width: 100%;
+    min-height: 2.75em;
+    padding: 0.625em 0.875em;
+    font: inherit;
+    border-radius: 0.5em;
+    border: 0.0625em solid #ead2d8;
+}
+
+button {
+    width: min(100%, 11.5em);
+    min-height: 3.75em;
+    border-radius: 2em;
+    font-size: 1.1em;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #d7799a;
+    border: 0;
+}
+
+button:hover {
+    background-color: #c9698b;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.answer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    width: 100%;
+}
+
+.answer-buttons button {
+    width: 11.5em;
+}
+
+.back {
+    position: absolute;
+    left: -18em;
+    bottom: 24em;
+    color: #d95f85;
+    background-color: #ffffff;
+    border: 0.0625em solid #ead2d8;
+}
+
+.back:hover {
+    color: #ffffff;
+    background-color: #c84f76;
+}
+
+.date-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 9.5em));
+    justify-content: center;
+    gap: 0.75em;
+    width: 100%;
+}
+
+.date-option {
+    width: 100%;
+    min-height: 9.5em;
+    aspect-ratio: 1 / 1;
+    border-radius: 1em;
+    font-size: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    padding: 1em;
+    line-height: 1.2;
+}
+
+.date-option span {
+    font-size: 2em;
+    line-height: 1;
+}
+
+.date-option.selected {
+    background-color: #f3a6c0;
+    box-shadow: 0 0 0 0.1875em rgba(217, 95, 133, 0.22);
+}
+
+.runaway {
+    position: relative;
+    width: 8.75em;
+    background-color: #c7aaed;
+    transition: background-color 0.12s ease;
+    will-change: transform;
+}
+
+.runaway:hover {
+    background-color: #a67cdd;
+}
+
+.runaway.is-running {
+    z-index: 10;
 }

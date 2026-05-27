@@ -6,32 +6,37 @@
     <title>Date</title>
 
     <link rel="stylesheet" href="style.css">
+    <style> @import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Chewy&display=swap');</style>
 
 </head>
 <body>
     <main>
         <div class="askOnDate">
-            <gif></gif>
+            <img src="giphy.gif"></img>
             <p>Will you go on a date with me?</p>
-            <button class="next">Yes</button>
-            <button>No</button>
+            <div class="answer-buttons">
+                <button class="next">😍 Yes</button>
+                <button class="runaway">😳 No</button>
+            </div>
+            <button class="back" hidden>Back</button>
         </div>
 
         <div class="confirm">
             <p>Wait you actually said yes?</p>
             <p>I was so ready for you to say no</p>
             <button class="next">okay okay! -></button>
+            <button class="back">Back</button>
         </div>
 
         <div class="datePicker">
             <p>So... when are you free?</p>
             <label>Pick a Day
-                <input type="date" name="date" min="2026-06-03"/>
+                <input type="date" name="date" min="2026-06-03" required />
             </label>
             
             <label for="time-select">What Time?</label>
-            <select name="time" id="time-select">
-                <option value="Select a time..."></option>
+            <select required name="time" id="time-select">
+                <option value="" disabled selected>Select a time...</option>
                 <option value="12">12:00</option>
                 <option value="13">13:00</option>
                 <option value="14">14:00</option>
@@ -45,23 +50,29 @@
             </select>
 
             <button class="next">Set the date</button> 
+            <button class="back">Back</button>
         </div>
 
         <div class="choiceOfDate">
             <p>So what are we feeling?</p>
-            <button>Italian</button>
-            <button>Japanese</button>
-            <button>Korean</button>
-            <button>Shared Dining</button>
-            <button>Drinks with a bite</button>
-            <button>Greek</button>
+            <div class="date-options">
+                <button class="date-option" data-choice="Italian"><span>🍝</span>Italian</button>
+                <button class="date-option" data-choice="Japanese"><span>🍣</span>Japanese</button>
+                <button class="date-option" data-choice="Korean"><span>🥘</span>Korean</button>
+                <button class="date-option" data-choice="Shared Dining"><span>🍽️</span>Shared Dining</button>
+                <button class="date-option" data-choice="Drinks with a Bite"><span>🍹</span>Drinks with a bite</button>
+                <button class="date-option" data-choice="Greek"><span>🇬🇷</span>Greek</button>
+            </div>
 
-            <button class="next">This one -></button>
+            <button class="next choice-next" disabled hidden>This one -></button>
+            <button class="back">Back</button>
         </div>
 
         <div class="final">
             <p>Glad you didn't say no. Let me know our meeting spot 🫶🏻</p>
             <p>PS. made this for you</p>
+            <p class="submission-status" hidden></p>
+            <button class="back">Back</button>
         </div>
 
     </main>
