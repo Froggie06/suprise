@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <main>
+        <div class="askOnDate">
+            <gif></gif>
+            <p>Will you go on a date with me?</p>
+            <button class="next">Yes</button>
+            <button>No</button>
+        </div>
+
+        <div class="confirm">
+            <p>Wait you actually said yes?</p>
+            <p>I was so ready for you to say no</p>
+            <button class="next">okay okay! -></button>
+        </div>
+
+        <div class="datePicker">
+            <p>So... when are you free?</p>
+            <label>Pick a Day
+                <input type="date" name="date" min="2026-06-03"/>
+            </label>
+            
+            <label for="time-select">What Time?</label>
+            <select name="time" id="time-select">
+                <option value="Select a time..."></option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+                <option value="14">14:00</option>
+                <option value="15">15:00</option>
+                <option value="16">16:00</option>
+                <option value="17">17:00</option>
+                <option value="18">18:00</option>
+                <option value="19">19:00</option>
+                <option value="20">20:00</option>
+                <option value="21">21:00</option>
+            </select>
+
+            <button class="next">Set the date</button> 
+        </div>
+
+        <div class="choiceOfDate">
+            <p>So what are we feeling?</p>
+            <button>Italian</button>
+            <button>Japanese</button>
+            <button>Korean</button>
+            <button>Shared Dining</button>
+            <button>Drinks with a bite</button>
+            <button>Greek</button>
+
+            <button class="next">This one -></button>
+        </div>
+
+        <div class="final">
+            <p>Glad you didn't say no. Let me know our meeting spot 🫶🏻</p>
+            <p>PS. made this for you</p>
+        </div>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

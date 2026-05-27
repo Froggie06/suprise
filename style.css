@@ -1,0 +1,13 @@
+* {
+    width: 0;
+    text-decoration: none;
+    background-color: rgb(251, 229, 232);
+}
+
+main > div {
+    display: none;
+}
+
+main > div.active {
+    display: block;
+}
