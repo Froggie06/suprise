@@ -183,3 +183,76 @@ button:disabled {
 .runaway.is-running {
     z-index: 10;
 }
+
+@media (max-width: 48em) {
+    body {
+        font-size: 0.95em;
+    }
+
+    main {
+        align-items: center;
+        min-height: 100vh;
+        padding: 1em 1em 6em;
+    }
+
+    main > div {
+        width: 100%;
+        padding: 1.25em;
+        border-radius: 1.4em;
+    }
+
+    main > div > p:first-of-type {
+        font-size: 1.35em;
+    }
+
+    img {
+        max-width: 12em;
+    }
+
+    .answer-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75em;
+    }
+
+    .answer-buttons button,
+    button {
+        width: 100%;
+        min-width: 0;
+        min-height: 3.25em;
+        font-size: 1em;
+    }
+
+    .back {
+        left: 50%;
+        bottom: -4.5em;
+        width: min(100%, 12em);
+        transform: translateX(-50%);
+    }
+
+    .date-options {
+        grid-template-columns: repeat(2, minmax(0, 8em));
+        gap: 0.65em;
+    }
+
+    .date-option {
+        min-height: 8em;
+        gap: 0.65em;
+        padding: 0.75em;
+    }
+
+    .date-option span {
+        font-size: 1.75em;
+    }
+}
+
+@media (max-width: 24em) {
+    .date-options {
+        grid-template-columns: 1fr;
+    }
+
+    .date-option {
+        aspect-ratio: auto;
+        min-height: 5.5em;
+    }
+}
