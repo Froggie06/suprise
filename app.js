@@ -107,6 +107,48 @@ function getDateAnswer() {
     };
 }
 
+function getDayOfWeek(dateString) {
+    if (!dateString) {
+        return null;
+    }
+
+    return new Date(`${dateString}T00:00:00`).getDay();
+}
+
+function updateTimeOptions() {
+    [...timeSelect.options].forEach(option => {
+        option.disabled = false;
+    });
+
+    if (!dateInput.value) {
+        return;
+    }
+
+    const selectedDay = getDayOfWeek(dateInput.value);
+    const isFriday = selectedDay === 5;
+    const isWeekend = selectedDay === 0 || selectedDay === 6;
+    const minimumHour = isFriday ? 21 : isWeekend ? 18 : 17;
+
+    [...timeSelect.options].forEach(option => {
+        if (!option.value) {
+            return;
+        }
+
+        const optionHour = Number(option.value);
+        option.disabled = optionHour < minimumHour;
+    });
+
+    if (isFriday) {
+        [...timeSelect.options].forEach(option => {
+            option.disabled = option.value !== "21";
+        });
+    }
+
+    if (timeSelect.value && Number(timeSelect.value) < minimumHour) {
+        timeSelect.value = "";
+    }
+}
+
 async function submitDateAnswer() {
     const answer = getDateAnswer();
     localStorage.setItem("askOnDateAnswer", JSON.stringify(answer));
@@ -210,6 +252,11 @@ if (runawayButton) {
         runawayTarget = { x: 0, y: 0 };
         startRunawayAnimation();
     });
+}
+
+if (dateInput && timeSelect) {
+    dateInput.addEventListener("change", updateTimeOptions);
+    updateTimeOptions();
 }
 
 dateOptions.forEach(option => {
