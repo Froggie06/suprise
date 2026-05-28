@@ -126,8 +126,9 @@ function updateTimeOptions() {
 
     const selectedDay = getDayOfWeek(dateInput.value);
     const isFriday = selectedDay === 5;
-    const isWeekend = selectedDay === 0 || selectedDay === 6;
-    const minimumHour = isFriday ? 21 : isWeekend ? 18 : 17;
+    const isSunday = selectedDay === 0;
+    const isWeekend = selectedDay === 6;
+    const minimumHour = isFriday ? 21 : isSunday ? 12 : isWeekend ? 18 : 17;
 
     [...timeSelect.options].forEach(option => {
         if (!option.value) {
@@ -141,6 +142,15 @@ function updateTimeOptions() {
     if (isFriday) {
         [...timeSelect.options].forEach(option => {
             option.disabled = option.value !== "21";
+        });
+    }
+
+    if (isSunday) {
+        [...timeSelect.options].forEach(option => {
+            if (!option.value) {
+                return;
+            }
+            option.disabled = false;
         });
     }
 
