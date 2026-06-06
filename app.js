@@ -128,7 +128,8 @@ function updateTimeOptions() {
     const isFriday = selectedDay === 5;
     const isSunday = selectedDay === 0;
     const isWeekend = selectedDay === 6;
-    const minimumHour = isFriday ? 21 : isSunday ? 12 : isWeekend ? 18 : 17;
+    const specificDateIsJune13 = dateInput.value === "2026-06-13";
+    const minimumHour = specificDateIsJune13 ? 13 : isFriday ? 21 : isSunday ? 12 : isWeekend ? 18 : 16;
 
     [...timeSelect.options].forEach(option => {
         if (!option.value) {
