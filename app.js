@@ -169,26 +169,25 @@ async function submitDateAnswer() {
             submissionStatus.hidden = false;
             submissionStatus.textContent = "Saved on this device. Add your Google Form settings to save it in Sheets.";
         }
-
         return;
     }
 
-    const formData = new FormData();
-    const [year, month, day] = answer.date.split("-");
-    const [hour, minute = "00"] = answer.time.split(":");
-
-    formData.append(`${googleForm.entries.date}_year`, year);
-    formData.append(`${googleForm.entries.date}_month`, month);
-    formData.append(`${googleForm.entries.date}_day`, day);
-    formData.append(`${googleForm.entries.time}_hour`, hour);
-    formData.append(`${googleForm.entries.time}_minute`, minute);
-    formData.append(googleForm.entries.choice, answer.choice);
+    // UPDATE: We gebruiken URLSearchParams i.p.v. FormData omdat Google dit verplicht stelt voor externen
+    const urlEncodedData = new URLSearchParams();
+    
+    // UPDATE: We sturen de datum en tijd nu in één keer op, precies zoals jouw formulier het verwacht!
+    urlEncodedData.append(googleForm.entries.date, answer.date); 
+    urlEncodedData.append(googleForm.entries.time, answer.time); 
+    urlEncodedData.append(googleForm.entries.choice, answer.choice);
 
     try {
         await fetch(googleForm.url, {
             method: "POST",
             mode: "no-cors",
-            body: formData
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: urlEncodedData.toString()
         });
 
         if (submissionStatus) {
