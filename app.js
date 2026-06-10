@@ -172,12 +172,28 @@ async function submitDateAnswer() {
         return;
     }
 
-    // UPDATE: We gebruiken URLSearchParams i.p.v. FormData omdat Google dit verplicht stelt voor externen
+    // 1. We knippen de datum netjes op
+    const [year, month, day] = answer.date.split("-"); 
+    
+    // 2. CRUCIAL: We zorgen dat de tijd ALTIJD hh:mm is (bijv. "12:00" in plaats van "12")
+    const hour = answer.time; 
+    const minute = "00";
+    const fullTime = `${hour}:${minute}`; 
+
     const urlEncodedData = new URLSearchParams();
     
-    // UPDATE: We sturen de datum en tijd nu in één keer op, precies zoals jouw formulier het verwacht!
-    urlEncodedData.append(googleForm.entries.date, answer.date); 
-    urlEncodedData.append(googleForm.entries.time, answer.time); 
+    // 3. We sturen de datum op BEIDE manieren (als tekst én opgeknipt) zodat Google het sowieso snapt
+    urlEncodedData.append(googleForm.entries.date, answer.date);
+    urlEncodedData.append(`${googleForm.entries.date}_year`, year);
+    urlEncodedData.append(`${googleForm.entries.date}_month`, month);
+    urlEncodedData.append(`${googleForm.entries.date}_day`, day);
+
+    // 4. We sturen de tijd op BEIDE manieren (als "12:00" én opgeknipt in hour/minute)
+    urlEncodedData.append(googleForm.entries.time, fullTime);
+    urlEncodedData.append(`${googleForm.entries.time}_hour`, hour);
+    urlEncodedData.append(`${googleForm.entries.time}_minute`, minute);
+
+    // 5. De activiteitkeuze
     urlEncodedData.append(googleForm.entries.choice, answer.choice);
 
     try {
