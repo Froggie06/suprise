@@ -8,14 +8,14 @@ const dateInput = document.querySelector('input[name="date"]');
 const timeSelect = document.querySelector("#time-select");
 const submissionStatus = document.querySelector(".submission-status");
 
-const googleForm = {
-    url: "https://docs.google.com/forms/d/e/1FAIpQLSfom_JqGr2GwAEdUz8IExNzIAtzaVHifI3hkyyS2mKqHL-OdA/formResponse",
-    entries: {
-        date: "entry.353906162",
-        time: "entry.1154854913",
-        choice: "entry.1514630571"
-    }
-};
+// const googleForm = {
+//     url: "https://docs.google.com/forms/d/e/1FAIpQLSfom_JqGr2GwAEdUz8IExNzIAtzaVHifI3hkyyS2mKqHL-OdA/formResponse",
+//     entries: {
+//         date: "entry.353906162",
+//         time: "entry.1154854913",
+//         choice: "entry.1514630571"
+//     }
+// };
 
 let currentStep = 0;
 let runawayAnimation;
@@ -164,56 +164,28 @@ async function submitDateAnswer() {
     const answer = getDateAnswer();
     localStorage.setItem("askOnDateAnswer", JSON.stringify(answer));
 
-    if (!hasGoogleFormConfig()) {
-        if (submissionStatus) {
-            submissionStatus.hidden = false;
-            submissionStatus.textContent = "Saved on this device. Add your Google Form settings to save it in Sheets.";
-        }
-        return;
-    }
-
-    // 1. We knippen de datum netjes op
-    const [year, month, day] = answer.date.split("-"); 
-    
-    // 2. CRUCIAL: We zorgen dat de tijd ALTIJD hh:mm is (bijv. "12:00" in plaats van "12")
-    const hour = answer.time; 
-    const minute = "00";
-    const fullTime = `${hour}:${minute}`; 
-
-    const urlEncodedData = new URLSearchParams();
-    
-    // 3. We sturen de datum op BEIDE manieren (als tekst én opgeknipt) zodat Google het sowieso snapt
-    urlEncodedData.append(googleForm.entries.date, answer.date);
-    urlEncodedData.append(`${googleForm.entries.date}_year`, year);
-    urlEncodedData.append(`${googleForm.entries.date}_month`, month);
-    urlEncodedData.append(`${googleForm.entries.date}_day`, day);
-
-    // 4. We sturen de tijd op BEIDE manieren (als "12:00" én opgeknipt in hour/minute)
-    urlEncodedData.append(googleForm.entries.time, fullTime);
-    urlEncodedData.append(`${googleForm.entries.time}_hour`, hour);
-    urlEncodedData.append(`${googleForm.entries.time}_minute`, minute);
-
-    // 5. De activiteitkeuze
-    urlEncodedData.append(googleForm.entries.choice, answer.choice);
+    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbycc1GI0ZGoObKcxfhHXgOxT22M0ANu1KO0R0ikY2HUNWcPjOX9F7stg1L0Rbe978g/exec";
 
     try {
-        await fetch(googleForm.url, {
+        await fetch(appsScriptUrl, {
             method: "POST",
             mode: "no-cors",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: urlEncodedData.toString()
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                date: answer.date,
+                time: answer.time,
+                choice: answer.choice
+            })
         });
 
         if (submissionStatus) {
             submissionStatus.hidden = false;
-            submissionStatus.textContent = "Saved.";
+            submissionStatus.textContent = "Opgeslagen! 🎉";
         }
     } catch {
         if (submissionStatus) {
             submissionStatus.hidden = false;
-            submissionStatus.textContent = "Could not save online, but it is saved on this device.";
+            submissionStatus.textContent = "Niet opgeslagen online, maar wel op dit apparaat.";
         }
     }
 }
